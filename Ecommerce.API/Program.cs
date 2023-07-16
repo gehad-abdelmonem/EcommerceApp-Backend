@@ -1,4 +1,5 @@
 
+using Ecommerce.API.Middleware;
 using Ecommerce.BL.Services.ProductService;
 using Ecommerce.DAL.Data.Context;
 using Ecommerce.DAL.Repositories;
@@ -39,6 +40,8 @@ namespace Ecommerce.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            //handiling exception middlware
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

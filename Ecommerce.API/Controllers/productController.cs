@@ -1,4 +1,5 @@
-﻿using Ecommerce.BL.Dtos.Product;
+﻿using Ecommerce.API.Errors;
+using Ecommerce.BL.Dtos.Product;
 using Ecommerce.BL.Services.ProductService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,7 @@ namespace Ecommerce.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class productController : ControllerBase
+    public class productController : BaseApiController
     {
         private readonly IproductService productService;
         public productController(IproductService _productService)
@@ -25,7 +26,7 @@ namespace Ecommerce.API.Controllers
             var result = await productService.GetById(id);
             if(result == null)
             {
-                return NotFound();
+                return NotFound(new ApiResponse(404));
             }
             return result;
         }
