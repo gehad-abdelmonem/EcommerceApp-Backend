@@ -2,6 +2,7 @@
 using Ecommerce.BL.Dtos.Product;
 using Ecommerce.BL.Dtos.ProductBrand;
 using Ecommerce.BL.Dtos.ProductType;
+using Ecommerce.BL.Helpers;
 using Ecommerce.DAL.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,10 @@ namespace Ecommerce.BL.Auto_Mapper
         public AutoMapperProfile()
         {
             #region product
-            CreateMap<Product,ReadProductDto>().ReverseMap();
+            CreateMap<Product,ReadProductDto>()
+                .ForMember(d=>d.PictureUrl,src=>src.MapFrom<ProductUrlResolver>())
+                .ReverseMap();
+
             #endregion
 
             #region product brand

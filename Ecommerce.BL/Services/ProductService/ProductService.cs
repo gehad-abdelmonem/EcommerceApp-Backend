@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Ecommerce.BL.Dtos.Product;
+using Ecommerce.DAL.Data.Models;
 using Ecommerce.DAL.Repositories;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,13 @@ namespace Ecommerce.BL.Services.ProductService
         {
             var productFromDb = await productRepository.GetAll();
             return  mapper.Map<List<ReadProductDto>>(productFromDb);
+        }
+
+        public async Task<ReadProductDto?> GetById(int id)
+        {
+            var productFromDb = await productRepository.GetById(id);
+            if(productFromDb == null) return null;
+            return mapper.Map<ReadProductDto>(productFromDb);
         }
     }
 }

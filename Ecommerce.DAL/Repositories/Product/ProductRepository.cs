@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +23,11 @@ namespace Ecommerce.DAL.Repositories
             return await context.Set<Product>().Include(p=>p.ProductBrand)
                 .Include(p=>p.ProductType).ToListAsync();
 
+        }
+        public new async Task<Product?> GetById(int id)
+        {
+            return await context.Set<Product>().Include(p => p.ProductBrand)
+                .Include(p => p.ProductType).FirstOrDefaultAsync(p => p.Id == id);
         }
     }
 }
