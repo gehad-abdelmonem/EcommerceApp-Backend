@@ -17,5 +17,11 @@ namespace Ecommerce.DAL.Repositories
         {
             context = _context;
         }
+        public new async Task<List<Product>> GetAll()
+        {
+            return await context.Set<Product>().Include(p=>p.ProductBrand)
+                .Include(p=>p.ProductType).ToListAsync();
+
+        }
     }
 }
