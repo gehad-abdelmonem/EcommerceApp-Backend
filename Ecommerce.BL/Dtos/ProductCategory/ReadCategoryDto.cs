@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ecommerce.DAL.Data.Models
+namespace Ecommerce.BL.Dtos.ProductType
 {
-    public class ProductType
+    public class ReadCategoryDto
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public ICollection<Product> Products { get; set;} = new HashSet<Product>();
     }
 }

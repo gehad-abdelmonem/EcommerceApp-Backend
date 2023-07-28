@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Ecommerce.BL.Dtos.Product;
-using Ecommerce.BL.Dtos.ProductBrand;
 using Ecommerce.BL.Dtos.ProductType;
 using Ecommerce.BL.Helpers;
 using Ecommerce.DAL.Data.Models;
@@ -23,13 +22,10 @@ namespace Ecommerce.BL.Auto_Mapper
 
             #endregion
 
-            #region product brand
-            CreateMap<ProductBrand,ReadBrandDto>().ReverseMap();
+            #region product Category
+            CreateMap<Category,ReadCategoryDto>().ReverseMap();
             #endregion
-
-            #region product Type
-            CreateMap<ProductType,ReadTypeDto>().ReverseMap();
-            #endregion
+            
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Ecommerce.API.Errors;
 using Ecommerce.BL.Dtos.Product;
+using Ecommerce.BL.Helpers;
 using Ecommerce.BL.Services.ProductService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,19 @@ namespace Ecommerce.API.Controllers
             }
             return result;
         }
+        [HttpGet]
+        [Route("productPaginate/{pageNumber:int?}/{pageSize:int?}")]
+        public async Task<ActionResult<List<ReadProductDto>>> GetProductsPaginated(int pageNumber=1,int PageSize=5)
+        {
+            var result = await productService.GetProductsPaginated(pageNumber, PageSize);
+            return result;
+        }
 
+        [HttpGet]
+        [Route("paginate")]
+        public async Task<ActionResult<PagedCollectionResponse<ReadProductDto>>> Get([FromQuery]ProductParams productParams)
+        {
+            return await productService.Get(productParams);
+        }
     }
 }

@@ -10,7 +10,8 @@ namespace Ecommerce.DAL.Repositories
 {
     public interface IProductRepository: IGenerticRepository<Product>
     {
-       
+        Task<List<Product>> GetProductPaginated(int pageNumber, int pageSize);
+        Task<IQueryable<Product>> GetQuerableProducts();
 
     }
 }

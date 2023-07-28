@@ -21,6 +21,30 @@ namespace Ecommerce.DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Ecommerce.DAL.Data.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Dresses"
+                        });
+                });
+
             modelBuilder.Entity("Ecommerce.DAL.Data.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -45,17 +69,12 @@ namespace Ecommerce.DAL.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal");
 
-                    b.Property<int>("ProductBrandId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductTypeId")
+                    b.Property<int>("categoryId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductBrandId");
-
-                    b.HasIndex("ProductTypeId");
+                    b.HasIndex("categoryId");
 
                     b.ToTable("Products");
 
@@ -67,104 +86,40 @@ namespace Ecommerce.DAL.Migrations
                             Name = "Open Dress",
                             PictureUrl = "d1.jpg",
                             Price = 1120m,
-                            ProductBrandId = 1,
-                            ProductTypeId = 1
+                            categoryId = 1
                         },
                         new
                         {
                             Id = 2,
                             Description = "A colorful dress that suits you in your daily outings",
                             Name = "Floral Dress",
-                            PictureUrl = "d1.jpg",
+                            PictureUrl = "d2.jpg",
                             Price = 900m,
-                            ProductBrandId = 1,
-                            ProductTypeId = 1
+                            categoryId = 1
                         },
                         new
                         {
                             Id = 3,
                             Description = "Casual and practical dress",
                             Name = "Oversized Dress",
-                            PictureUrl = "d1.jpg",
+                            PictureUrl = "d3.jpg",
                             Price = 900m,
-                            ProductBrandId = 1,
-                            ProductTypeId = 1
-                        });
-                });
-
-            modelBuilder.Entity("Ecommerce.DAL.Data.Models.ProductBrand", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductBrands");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Mlameh"
-                        });
-                });
-
-            modelBuilder.Entity("Ecommerce.DAL.Data.Models.ProductType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("productTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Dresses"
+                            categoryId = 1
                         });
                 });
 
             modelBuilder.Entity("Ecommerce.DAL.Data.Models.Product", b =>
                 {
-                    b.HasOne("Ecommerce.DAL.Data.Models.ProductBrand", "ProductBrand")
-                        .WithMany("products")
-                        .HasForeignKey("ProductBrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Ecommerce.DAL.Data.Models.ProductType", "ProductType")
+                    b.HasOne("Ecommerce.DAL.Data.Models.Category", "category")
                         .WithMany("Products")
-                        .HasForeignKey("ProductTypeId")
+                        .HasForeignKey("categoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ProductBrand");
-
-                    b.Navigation("ProductType");
+                    b.Navigation("category");
                 });
 
-            modelBuilder.Entity("Ecommerce.DAL.Data.Models.ProductBrand", b =>
-                {
-                    b.Navigation("products");
-                });
-
-            modelBuilder.Entity("Ecommerce.DAL.Data.Models.ProductType", b =>
+            modelBuilder.Entity("Ecommerce.DAL.Data.Models.Category", b =>
                 {
                     b.Navigation("Products");
                 });

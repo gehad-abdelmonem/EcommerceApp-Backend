@@ -18,16 +18,30 @@ namespace Ecommerce.DAL.Repositories
         {
             context = _context;
         }
+
         public new async Task<List<Product>> GetAll()
         {
-            return await context.Set<Product>().Include(p=>p.ProductBrand)
-                .Include(p=>p.ProductType).ToListAsync();
+            return await context.Set<Product>()
+                .Include(p=>p.category).ToListAsync();
 
         }
+
         public new async Task<Product?> GetById(int id)
         {
-            return await context.Set<Product>().Include(p => p.ProductBrand)
-                .Include(p => p.ProductType).FirstOrDefaultAsync(p => p.Id == id);
+            return await context.Set<Product>()
+                .Include(p => p.category).FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public async Task<List<Product>> GetProductPaginated(int pageNumber,int pageSize)
+        {
+            int skipedProducts = (pageNumber - 1) * pageSize;
+            return await context.Set<Product>().OrderBy(p=>p.Id).Skip(skipedProducts).Take(pageSize).ToListAsync();
+        }
+
+        public async Task<IQueryable<Product>> GetQuerableProducts()
+        {
+            IQueryable<Product> query =  context.Products.Include(p=>p.category);
+            return  query;
         }
     }
 }

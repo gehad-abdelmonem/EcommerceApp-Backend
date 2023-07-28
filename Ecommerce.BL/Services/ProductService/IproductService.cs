@@ -1,4 +1,5 @@
 ﻿using Ecommerce.BL.Dtos.Product;
+using Ecommerce.BL.Helpers;
 using Ecommerce.DAL.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,8 @@ namespace Ecommerce.BL.Services.ProductService
     {
         Task<List<ReadProductDto>> GetAll();
         Task<ReadProductDto?> GetById(int id);
+
+        Task<List<ReadProductDto>> GetProductsPaginated(int pageNumber, int pageSize);
+        Task<PagedCollectionResponse<ReadProductDto>> Get(ProductParams productParams);
     }
 }

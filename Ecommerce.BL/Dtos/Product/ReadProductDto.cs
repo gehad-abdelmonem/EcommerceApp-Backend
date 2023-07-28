@@ -1,5 +1,4 @@
-﻿using Ecommerce.BL.Dtos.ProductBrand;
-using Ecommerce.BL.Dtos.ProductType;
+﻿using Ecommerce.BL.Dtos.ProductType;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +14,6 @@ namespace Ecommerce.BL.Dtos.Product
         public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public string PictureUrl { get; set; } = string.Empty;
-        public int ProductTypeId { get; set; }
-        public int ProductBrandId { get; set; }
-        public ReadBrandDto ProductBrand { get; set; } = new();
-        public ReadTypeDto ProductType { get; set; } = new();
+        public ReadCategoryDto category { get; set; } = new();
     }
 }

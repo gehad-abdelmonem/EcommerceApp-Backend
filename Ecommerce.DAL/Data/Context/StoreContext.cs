@@ -16,19 +16,14 @@ namespace Ecommerce.DAL.Data.Context
 
         }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductType> productTypes { get; set; }
-        public DbSet<ProductBrand> ProductBrands { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //seeding data
-            List<ProductType> productsTypes = new List<ProductType>
+            List<Category> productsCategories = new List<Category>
             {
-                new ProductType{Id =1,Name="Dresses"}
-            };
-            List<ProductBrand> productBrands = new List<ProductBrand>
-            {
-                new ProductBrand{Id=1,Name="Mlameh"}
+                new Category{Id =1,Name="Dresses"}
             };
             List<Product> products = new List<Product>
             {
@@ -39,8 +34,8 @@ namespace Ecommerce.DAL.Data.Context
                     Description="A delightful and precious open dress for your special outings",
                     Price=1120,
                     PictureUrl = "d1.jpg",
-                    ProductTypeId =1,
-                    ProductBrandId=1
+                    categoryId =1,
+                   
                 },
                 new Product
                 {
@@ -48,9 +43,8 @@ namespace Ecommerce.DAL.Data.Context
                     Name="Floral Dress",
                     Description="A colorful dress that suits you in your daily outings",
                     Price=900,
-                    PictureUrl = "d1.jpg",
-                    ProductTypeId =1,
-                    ProductBrandId=1
+                    PictureUrl = "d2.jpg",
+                    categoryId =1,
                 },
                   new Product
                 {
@@ -58,13 +52,11 @@ namespace Ecommerce.DAL.Data.Context
                     Name="Oversized Dress",
                     Description="Casual and practical dress",
                     Price=900,
-                    PictureUrl = "d1.jpg",
-                    ProductTypeId =1,
-                    ProductBrandId=1
+                    PictureUrl = "d3.jpg",
+                    categoryId =1,
                 }
             };
-            modelBuilder.Entity<ProductType>().HasData(productsTypes);
-            modelBuilder.Entity<ProductBrand>().HasData(productBrands);
+            modelBuilder.Entity<Category>().HasData(productsCategories);
             modelBuilder.Entity<Product>().HasData(products);
             //product congigration
             new ProductConfigration().Configure(modelBuilder.Entity<Product>());
