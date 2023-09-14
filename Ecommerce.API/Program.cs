@@ -5,6 +5,7 @@ using Ecommerce.BL.Services.ProductService;
 using Ecommerce.DAL.Data.Context;
 using Ecommerce.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 
 namespace Ecommerce.API
 {
@@ -28,6 +29,7 @@ namespace Ecommerce.API
             });
             #endregion
 
+       
             #region regeister servicess(repos)
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IproductService,ProductService>();
@@ -39,6 +41,7 @@ namespace Ecommerce.API
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             #endregion
 
+
             #region Cors
             builder.Services.AddCors(options=>
             {
@@ -46,7 +49,15 @@ namespace Ecommerce.API
                 {
                     policy.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
                 });
-            }); 
+            });
+            #endregion
+
+            #region setting redis
+            builder.Services.AddSingleton<IConnectionMultiplexer>(c=>
+            {
+                var options = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"));
+                return ConnectionMultiplexer.Connect(options);
+            });
             #endregion
 
             var app = builder.Build();

@@ -38,6 +38,11 @@ namespace Ecommerce.DAL.Repositories
             return await context.Set<Product>().OrderBy(p=>p.Id).Skip(skipedProducts).Take(pageSize).ToListAsync();
         }
 
+        public async Task<List<Product>> GetRelatedProducts(int categoryId, int productId, int productCount)
+        {
+            return await context.Set<Product>().Where(p=>(p.categoryId==categoryId &&p.Id!=productId)).Take(productCount).ToListAsync();
+        }
+
         public async Task<IQueryable<Product>> GetQuerableProducts()
         {
             IQueryable<Product> query =  context.Products.Include(p=>p.category);

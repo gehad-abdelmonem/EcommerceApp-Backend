@@ -12,6 +12,6 @@ namespace Ecommerce.DAL.Repositories
     {
         Task<List<Product>> GetProductPaginated(int pageNumber, int pageSize);
         Task<IQueryable<Product>> GetQuerableProducts();
-
+        Task<List<Product>> GetRelatedProducts(int categoryId, int productId,int productCount);
     }
 }

@@ -16,5 +16,6 @@ namespace Ecommerce.BL.Services.ProductService
 
         Task<List<ReadProductDto>> GetProductsPaginated(int pageNumber, int pageSize);
         Task<PagedCollectionResponse<ReadProductDto>> Get(ProductParams productParams);
+        Task<List<ReadProductDto>> GetRelatedProducts(int categoryId,int productId,int productCount);
     }
 }

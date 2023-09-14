@@ -17,7 +17,7 @@ namespace Ecommerce.BL.Auto_Mapper
         {
             #region product
             CreateMap<Product,ReadProductDto>()
-                .ForMember(d=>d.PictureUrl,src=>src.MapFrom<ProductUrlResolver>())
+               //.ForMember(d=>d.PictureUrl,src=>src.MapFrom<ProductUrlResolver>())
                 .ReverseMap();
 
             #endregion

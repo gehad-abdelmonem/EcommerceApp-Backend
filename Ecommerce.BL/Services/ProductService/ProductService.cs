@@ -45,7 +45,6 @@ namespace Ecommerce.BL.Services.ProductService
         public async Task<PagedCollectionResponse<ReadProductDto>> Get(ProductParams productParams)
         {
             IQueryable<Product> query = await productRepository.GetQuerableProducts();
-            var itemCount = query.Count();
             if(!string.IsNullOrEmpty(productParams.Sort))
             {
                 switch(productParams.Sort)
@@ -57,7 +56,7 @@ namespace Ecommerce.BL.Services.ProductService
                         query = query.OrderByDescending(p=>p.Price);
                         break;
                     default:
-                        query = query.OrderBy(p => p.Id); 
+                        query = query.OrderBy(p => p.Name); 
                         break;
                 }
             }
@@ -70,7 +69,7 @@ namespace Ecommerce.BL.Services.ProductService
             {
                 query = query.Where(p=>p.Name.Contains(productParams.Search));
             }
-
+            var itemCount = query.Count();
             int skipedProducts = (productParams.PageNumber - 1) * productParams.PageSize;
             var data =await query.Skip(skipedProducts).Take(productParams.PageSize).ToListAsync();
 
@@ -81,6 +80,12 @@ namespace Ecommerce.BL.Services.ProductService
                 Count = itemCount,
                 Data = mapper.Map<List<ReadProductDto>>(data)
             };
+        }
+
+        public async Task<List<ReadProductDto>> GetRelatedProducts(int categoryId, int productId, int productCount)
+        {
+            var productsFromDB = await productRepository.GetRelatedProducts(categoryId,productId, productCount);
+            return  mapper.Map<List<ReadProductDto>>(productsFromDB);
         }
     }
 }

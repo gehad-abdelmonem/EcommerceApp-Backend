@@ -25,7 +25,7 @@ namespace Ecommerce.API.Controllers
         public async Task<ActionResult<ReadProductDto>> GetById(int id)
         {
             var result = await productService.GetById(id);
-            if(result == null)
+            if (result == null)
             {
                 return NotFound(new ApiResponse(404));
             }
@@ -33,7 +33,7 @@ namespace Ecommerce.API.Controllers
         }
         [HttpGet]
         [Route("productPaginate/{pageNumber:int?}/{pageSize:int?}")]
-        public async Task<ActionResult<List<ReadProductDto>>> GetProductsPaginated(int pageNumber=1,int PageSize=5)
+        public async Task<ActionResult<List<ReadProductDto>>> GetProductsPaginated(int pageNumber = 1, int PageSize = 5)
         {
             var result = await productService.GetProductsPaginated(pageNumber, PageSize);
             return result;
@@ -41,9 +41,17 @@ namespace Ecommerce.API.Controllers
 
         [HttpGet]
         [Route("paginate")]
-        public async Task<ActionResult<PagedCollectionResponse<ReadProductDto>>> Get([FromQuery]ProductParams productParams)
+        public async Task<ActionResult<PagedCollectionResponse<ReadProductDto>>> Get([FromQuery] ProductParams productParams)
         {
             return await productService.Get(productParams);
         }
+
+        [HttpGet]
+        [Route("related/{categoryId}/{productId}/{productCont}")]
+        public async Task<ActionResult<List<ReadProductDto>>> GetRelatedProducts(int categoryId, int productId, int productCont)
+        {
+            return await productService.GetRelatedProducts(categoryId, productId, productCont);
+        }
+          
     }
 }
