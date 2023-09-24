@@ -4,6 +4,7 @@ using Ecommerce.BL.Services.CategoryService;
 using Ecommerce.BL.Services.ProductService;
 using Ecommerce.DAL.Data.Context;
 using Ecommerce.DAL.Repositories;
+using Ecommerce.DAL.Repositories.Basket;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 
@@ -35,6 +36,7 @@ namespace Ecommerce.API
             builder.Services.AddScoped<IproductService,ProductService>();
             builder.Services.AddScoped<ICategoryReposiory, CategoryRepository>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IBasketRepository, BasketRepository>();
             #endregion
 
             #region auto mapper
