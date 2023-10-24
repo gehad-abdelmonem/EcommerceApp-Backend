@@ -22,9 +22,9 @@ namespace Ecommerce.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CustomerBasket>> UpdateBasket(CustomerBasket basket)
+        public async Task<ActionResult<CustomerBasket>> SetBasket(CustomerBasket basket)
         {
-            var updatedBasket = await _basketRepository.UpdateBasket(basket);
+            var updatedBasket = await _basketRepository.SetBasket(basket);
             return Ok(updatedBasket);
         }
 
