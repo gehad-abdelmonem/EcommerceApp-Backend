@@ -4,6 +4,7 @@ using Ecommerce.DAL.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce.DAL.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20231025092506_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,26 +96,6 @@ namespace Ecommerce.DAL.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            AccessFailedCount = 0,
-                            Adress = "shebin elkom, menofia",
-                            ConcurrencyStamp = "de5f1512-9fce-4df5-a503-00ea41c22c5f",
-                            Email = "gehadabdelmonam@gmail.com",
-                            EmailConfirmed = false,
-                            Governorate = "Menofia",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "GEHADABDELMONAM@GMAIL.COM",
-                            NormalizedUserName = "GEHAD",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPkDzabKS6iajL56FDgu0yZbw3dk31UrTdRGUOn2leCYQS/ORkdAKBUB681f4URHig==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "fcd45740-eaa2-4b0a-abfe-96b646e53df3",
-                            TwoFactorEnabled = false,
-                            UserName = "Gehad"
-                        });
                 });
 
             modelBuilder.Entity("Ecommerce.DAL.Data.Models.Category", b =>
@@ -277,22 +260,6 @@ namespace Ecommerce.DAL.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AspNetUserClaims", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "superAdmin",
-                            UserId = "1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ClaimType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
-                            ClaimValue = "1",
-                            UserId = "1"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>

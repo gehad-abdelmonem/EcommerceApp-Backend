@@ -1,4 +1,6 @@
-﻿using Ecommerce.DAL.Data.Models;
+﻿using AutoMapper;
+using Ecommerce.BL.Dtos.Basket;
+using Ecommerce.DAL.Data.Models;
 using Ecommerce.DAL.Repositories.Basket;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +12,11 @@ namespace Ecommerce.API.Controllers
     public class BasketController : ControllerBase
     {
         private readonly IBasketRepository _basketRepository;
-        public BasketController(IBasketRepository basketRepository)
+        private readonly IMapper _mapper;
+        public BasketController(IBasketRepository basketRepository,IMapper mapper)
         {
             _basketRepository= basketRepository;
+            _mapper= mapper;
         }
         [HttpGet]
         public async Task<ActionResult<CustomerBasket>> GetBasketById(string id)
@@ -22,9 +26,10 @@ namespace Ecommerce.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CustomerBasket>> SetBasket(CustomerBasket basket)
+        public async Task<ActionResult<CustomerBasket>> SetBasket(CustomerBasketDto basket)
         {
-            var updatedBasket = await _basketRepository.SetBasket(basket);
+            var customerBasket = _mapper.Map<CustomerBasket>(basket);
+            var updatedBasket = await _basketRepository.SetBasket(customerBasket);
             return Ok(updatedBasket);
         }
 

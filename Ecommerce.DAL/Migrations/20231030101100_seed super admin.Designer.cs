@@ -4,6 +4,7 @@ using Ecommerce.DAL.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce.DAL.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20231030101100_seed super admin")]
+    partial class seedsuperadmin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,16 +103,15 @@ namespace Ecommerce.DAL.Migrations
                             Id = "1",
                             AccessFailedCount = 0,
                             Adress = "shebin elkom, menofia",
-                            ConcurrencyStamp = "de5f1512-9fce-4df5-a503-00ea41c22c5f",
+                            ConcurrencyStamp = "8755b4a6-652b-4a88-8e03-d0c828b72520",
                             Email = "gehadabdelmonam@gmail.com",
-                            EmailConfirmed = false,
+                            EmailConfirmed = true,
                             Governorate = "Menofia",
                             LockoutEnabled = false,
-                            NormalizedEmail = "GEHADABDELMONAM@GMAIL.COM",
                             NormalizedUserName = "GEHAD",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPkDzabKS6iajL56FDgu0yZbw3dk31UrTdRGUOn2leCYQS/ORkdAKBUB681f4URHig==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBIlOWlk6Hz1EYmdIHDaZflwuIGq3G2yGJlO7I1Vd+UiabKM3Y56qCniZOTmPvVECw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fcd45740-eaa2-4b0a-abfe-96b646e53df3",
+                            SecurityStamp = "6c7ca72e-041b-49b8-835f-ebfbbfb8791f",
                             TwoFactorEnabled = false,
                             UserName = "Gehad"
                         });
