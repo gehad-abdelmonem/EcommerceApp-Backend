@@ -26,15 +26,18 @@ namespace Ecommerce.API.Controllers
         [Route("{id}")]
         public async Task<ActionResult<bool>> Delete(int id)
         {
-            return await productService.DeleteProduct(id);
+            bool result = await productService.DeleteProduct(id);
+            if(result==false) return NotFound();
+            return Ok(true);
         }
 
         [HttpPut]
         [Route("{id}")]
         public async Task<ActionResult>Update(int id,UpdateProductDto updateProductDto)
         {
-            if (id != updateProductDto.id) return NotFound();
-             await productService.UpdatProduct(id, updateProductDto);
+            if (id != updateProductDto.id) return BadRequest();
+            var result = await productService.UpdatProduct(id, updateProductDto);
+            if (result == null) return NotFound();
             return NoContent();
         }
 

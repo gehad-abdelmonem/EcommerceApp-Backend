@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Ecommerce.BL.Dtos.Basket;
 using Ecommerce.BL.Dtos.Product;
+using Ecommerce.BL.Dtos.ProductCategory;
 using Ecommerce.BL.Dtos.ProductType;
 using Ecommerce.BL.Helpers;
 using Ecommerce.DAL.Data.Models;
@@ -27,6 +28,7 @@ namespace Ecommerce.BL.Auto_Mapper
 
             #region product Category
             CreateMap<Category,ReadCategoryDto>().ReverseMap();
+            CreateMap<WriteCategoryDto,Category>().ReverseMap();
             #endregion
 
             #region basket
