@@ -31,13 +31,6 @@ namespace Ecommerce.DAL.Repositories
             return await context.Set<Product>()
                 .Include(p => p.category).FirstOrDefaultAsync(p => p.Id == id);
         }
-
-        public async Task<List<Product>> GetProductPaginated(int pageNumber,int pageSize)
-        {
-            int skipedProducts = (pageNumber - 1) * pageSize;
-            return await context.Set<Product>().OrderBy(p=>p.Id).Skip(skipedProducts).Take(pageSize).ToListAsync();
-        }
-
         public async Task<List<Product>> GetRelatedProducts(int categoryId, int productId, int productCount)
         {
             return await context.Set<Product>().Where(p=>(p.categoryId==categoryId &&p.Id!=productId)).Take(productCount).ToListAsync();

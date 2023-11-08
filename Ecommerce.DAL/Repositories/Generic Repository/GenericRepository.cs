@@ -15,6 +15,17 @@ namespace Ecommerce.DAL.Repositories.Generic_Repository
         {
             context = _context; 
         }
+
+        public async Task Add(TEntity entity)
+        {
+           await context.Set<TEntity>().AddAsync(entity);
+        }
+
+        public void Delete(TEntity entity)
+        {
+           context.Set<TEntity>().Remove(entity);
+        }
+
         public async Task<List<TEntity>> GetAll()
         {
             return await context.Set<TEntity>().AsNoTracking().ToListAsync();
@@ -24,5 +35,10 @@ namespace Ecommerce.DAL.Repositories.Generic_Repository
         {
             return await context.Set<TEntity>().FindAsync(id);
         }
+        public void SaveChange()
+        {
+            context.SaveChanges();
+        }
+
     }
 }

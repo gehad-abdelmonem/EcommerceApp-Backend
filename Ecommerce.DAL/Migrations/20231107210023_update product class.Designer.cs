@@ -4,6 +4,7 @@ using Ecommerce.DAL.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce.DAL.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20231107210023_update product class")]
+    partial class updateproductclass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,16 +103,16 @@ namespace Ecommerce.DAL.Migrations
                             Id = "1",
                             AccessFailedCount = 0,
                             Adress = "shebin elkom, menofia",
-                            ConcurrencyStamp = "384a6b5d-680f-4f7b-b6d6-e7357c93a57e",
+                            ConcurrencyStamp = "759625f3-bd58-4d55-8e43-fd2640c4a90d",
                             Email = "gehadabdelmonam@gmail.com",
                             EmailConfirmed = false,
                             Governorate = "Menofia",
                             LockoutEnabled = false,
                             NormalizedEmail = "30@GMAIL.COM",
                             NormalizedUserName = "GEHAD",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMMCfLgDAlM5bVIT/Fua9WKnYmCLHnGKyQy7PfmXN/hhNtwoSHksa1PsPa+dYbAbnA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFtRNpOvYB2OzU5qiu+gLRJIDEum0Se/mAK0wK5vZNltF4H7tQDCyIijaCvwIl3MpQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "06c77c46-d2a4-4f3e-81bb-8da6ae0ec187",
+                            SecurityStamp = "601566f2-cde5-402e-ab1e-30313d8425a0",
                             TwoFactorEnabled = false,
                             UserName = "Gehad"
                         });
@@ -147,6 +150,9 @@ namespace Ecommerce.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Available")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -176,6 +182,7 @@ namespace Ecommerce.DAL.Migrations
                         new
                         {
                             Id = 1,
+                            Available = false,
                             Description = "A delightful and precious open dress for your special outings",
                             Name = "Open Dress",
                             PictureUrl = "d1.jpg",
@@ -185,6 +192,7 @@ namespace Ecommerce.DAL.Migrations
                         new
                         {
                             Id = 2,
+                            Available = false,
                             Description = "A colorful dress that suits you in your daily outings",
                             Name = "Floral Dress",
                             PictureUrl = "d2.jpg",
@@ -194,6 +202,7 @@ namespace Ecommerce.DAL.Migrations
                         new
                         {
                             Id = 3,
+                            Available = false,
                             Description = "Casual and practical dress",
                             Name = "Oversized Dress",
                             PictureUrl = "d3.jpg",

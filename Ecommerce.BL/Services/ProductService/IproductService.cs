@@ -13,9 +13,11 @@ namespace Ecommerce.BL.Services.ProductService
     {
         Task<List<ReadProductDto>> GetAll();
         Task<ReadProductDto?> GetById(int id);
-
-        Task<List<ReadProductDto>> GetProductsPaginated(int pageNumber, int pageSize);
         Task<PagedCollectionResponse<ReadProductDto>> Get(ProductParams productParams);
         Task<List<ReadProductDto>> GetRelatedProducts(int categoryId,int productId,int productCount);
+        Task <ReadProductDto> AddProduct(WriteProductDto product);
+        Task<bool> DeleteProduct(int productId);
+        Task<ReadProductDto> UpdatProduct(int id,UpdateProductDto updateProductDto);
+        
     }
 }

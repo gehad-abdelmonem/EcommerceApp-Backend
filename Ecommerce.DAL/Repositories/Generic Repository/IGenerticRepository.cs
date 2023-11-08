@@ -10,5 +10,8 @@ namespace Ecommerce.DAL.Repositories.Generic_Repository
     {
         Task<List<TEntity>> GetAll();
         Task<TEntity?> GetById(int id);
+        Task Add(TEntity entity);
+        void Delete(TEntity entity);
+        void SaveChange();
     }
 }

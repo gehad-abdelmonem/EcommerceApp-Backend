@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,12 +36,6 @@ namespace Ecommerce.BL.Services.ProductService
             var productFromDb = await productRepository.GetById(id);
             if(productFromDb == null) return null;
             return mapper.Map<ReadProductDto>(productFromDb);
-        }
-
-        public async Task<List<ReadProductDto>> GetProductsPaginated(int pageNumber, int pageSize)
-        {
-            var dataFromDb = await productRepository.GetProductPaginated(pageNumber, pageSize);
-            return mapper.Map<List<ReadProductDto>>(dataFromDb);
         }
         public async Task<PagedCollectionResponse<ReadProductDto>> Get(ProductParams productParams)
         {
@@ -86,6 +81,36 @@ namespace Ecommerce.BL.Services.ProductService
         {
             var productsFromDB = await productRepository.GetRelatedProducts(categoryId,productId, productCount);
             return  mapper.Map<List<ReadProductDto>>(productsFromDB);
+        }
+
+        public async Task<ReadProductDto> AddProduct(WriteProductDto writeproductDto)
+        {
+            var productToAdd = mapper.Map<Product>(writeproductDto);
+            await productRepository.Add(productToAdd);
+            productRepository.SaveChange();
+            return mapper.Map<ReadProductDto>(productToAdd);
+        }
+
+        public async Task<bool> DeleteProduct(int productId)
+        {
+            var productFromDb = await productRepository.GetById(productId);
+            if(productFromDb == null) { return false; }
+            productRepository.Delete(productFromDb);
+            productRepository.SaveChange();
+            return true;
+        }
+
+        public async Task<ReadProductDto> UpdatProduct(int id,UpdateProductDto updateProductDto)
+        {
+            var productToEdit = await productRepository.GetById(id);
+            if(productToEdit == null) { return null; }
+            productToEdit.Name= updateProductDto.Name;
+            productToEdit.Price= updateProductDto.Price;
+            productToEdit.Description = updateProductDto.Description;
+            productToEdit.PictureUrl= updateProductDto.PictureUrl;
+            productToEdit.categoryId = updateProductDto.CategoryId;
+            productRepository.SaveChange();
+            return mapper.Map<ReadProductDto>(productToEdit);
         }
     }
 }

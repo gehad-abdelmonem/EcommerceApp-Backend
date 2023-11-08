@@ -16,11 +16,34 @@ namespace Ecommerce.API.Controllers
         {
             productService = _productService;
         }
+        [HttpPost]
+        public async Task<ActionResult<ReadProductDto>> Add(WriteProductDto product)
+        {
+            return await productService.AddProduct(product);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<ActionResult<bool>> Delete(int id)
+        {
+            return await productService.DeleteProduct(id);
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<ActionResult>Update(int id,UpdateProductDto updateProductDto)
+        {
+            if (id != updateProductDto.id) return NotFound();
+             await productService.UpdatProduct(id, updateProductDto);
+            return NoContent();
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<ReadProductDto>>> GetAll()
         {
             return await productService.GetAll();
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<ReadProductDto>> GetById(int id)
         {
@@ -31,14 +54,6 @@ namespace Ecommerce.API.Controllers
             }
             return result;
         }
-        [HttpGet]
-        [Route("productPaginate/{pageNumber:int?}/{pageSize:int?}")]
-        public async Task<ActionResult<List<ReadProductDto>>> GetProductsPaginated(int pageNumber = 1, int PageSize = 5)
-        {
-            var result = await productService.GetProductsPaginated(pageNumber, PageSize);
-            return result;
-        }
-
         [HttpGet]
         [Route("paginate")]
         public async Task<ActionResult<PagedCollectionResponse<ReadProductDto>>> Get([FromQuery] ProductParams productParams)
